@@ -1,4 +1,4 @@
-import { optionalDateField } from "../../Core/Type/OptionalDateField";
+
 import { optionalStringField } from "../../Core/Type/OptionalStringField";
 
 enum taskStatus {
@@ -14,8 +14,8 @@ interface ITask {
     getDescription(): optionalStringField;
     setDescription(newDescription: optionalStringField): void;
 
-    getDeadLine(): optionalDateField;
-    setDeadLine(newDeadLine: optionalDateField): void;
+    getDeadLine(): optionalStringField;
+    setDeadLine(newDeadLine: optionalStringField): void;
 
     getStatus(): String;
     setStatus(newStatus: String): void;

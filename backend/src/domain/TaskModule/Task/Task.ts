@@ -1,15 +1,12 @@
 
-import { optionalDateField } from "../../Core/Type/OptionalDateField";
 import { optionalStringField } from "../../Core/Type/OptionalStringField";
 import { ITask } from "./ITask";
 
 export class Task implements ITask {
 
-
-
     private title: String;
     private description: optionalStringField;
-    private deadLine: optionalDateField;
+    private deadLine: optionalStringField;
     private status: String;
 
     getTitle(): String {
@@ -24,10 +21,10 @@ export class Task implements ITask {
     setDescription(newDescription: optionalStringField): void {
         this.description = newDescription;
     }
-    getDeadLine(): optionalDateField {
+    getDeadLine(): optionalStringField {
         return this.deadLine;
     }
-    setDeadLine(newDeadLine: optionalDateField): void {
+    setDeadLine(newDeadLine: optionalStringField): void {
         this.deadLine = newDeadLine;
     }
     getStatus(): String {
@@ -36,6 +33,5 @@ export class Task implements ITask {
     setStatus(newStatus: String): void {
         this.status = newStatus;
     }
-
 
 }
