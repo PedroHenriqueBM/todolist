@@ -9,16 +9,18 @@ enum taskStatus {
 interface ITask {
 
     getTitle(): String;
-    setTitle(newTitle: String): void;
+    setTitle(newTitle: String): this;
 
     getDescription(): optionalStringField;
-    setDescription(newDescription: optionalStringField): void;
+    setDescription(newDescription: optionalStringField): this;
 
     getDeadLine(): optionalStringField;
     setDeadLine(newDeadLine: optionalStringField): void;
 
     getStatus(): String;
-    setStatus(newStatus: String): void;
+    setStatus(newStatus: String): this;
+
+    toJSON(): this;
 
 }
 
