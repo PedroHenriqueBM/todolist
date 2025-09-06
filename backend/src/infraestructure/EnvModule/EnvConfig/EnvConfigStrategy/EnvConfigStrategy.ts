@@ -7,10 +7,11 @@ export class EnvConfigStrategy extends Strategy implements IEnvConfigStrategy {
 
     checkApiPort(field: any): void {
 
+
         if (this.isInt(field).not().build()) {
 
             throw new EnvironmentVariableError({
-                cause: "API_PORT must be int",
+                cause: `API_PORT (${field}) must be int`,
                 module: "EnvConfigStrategy",
                 status: 400
             });
@@ -43,10 +44,10 @@ export class EnvConfigStrategy extends Strategy implements IEnvConfigStrategy {
 
         } else {
 
-            if (this.checkMinLengthNumber(1, field).not().build()) {
+            if (this.checkMinLengthString(1, field).not().build()) {
 
                 throw new EnvironmentVariableError({
-                    cause: "API_PORT must has a min length >= 1",
+                    cause: `BASE_URL_API (${field})  must has a min length >= 1`,
                     module: "EnvConfigStrategy",
                     status: 400
                 })

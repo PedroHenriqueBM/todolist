@@ -69,12 +69,34 @@ const hateoas = {
 
 const taskControler = new TaskController(taskService, proxy, hateoas);
 
-taskRouter.get("tasks", taskControler.readAllTasks);
-taskRouter.get("task/:id", taskControler.readTaskById);
-taskRouter.get("task", taskControler.readTaskByTitle);
-taskRouter.post("task", taskControler.createTask);
-taskRouter.put("task/:id", taskControler.updateTask);
-taskRouter.delete("task/:id", taskControler.deleteTask);
+/**
+ * @swagger
+ * /tasks:
+ *   get:
+ *     summary: List all tasks
+ *     responses:
+ *       200:
+ *         description: Task list
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 type: object
+ *                 properties:
+ *                   id:
+ *                     type: string
+ *                   title:
+ *                     type: string
+ *                   done:
+ *                     type: boolean
+ */
+taskRouter.get("/tasks", taskControler.readAllTasks);
+taskRouter.get("/task/:id", taskControler.readTaskById);
+taskRouter.get("/task", taskControler.readTaskByTitle);
+taskRouter.post("/task", taskControler.createTask);
+taskRouter.put("/task/:id", taskControler.updateTask);
+taskRouter.delete("/task/:id", taskControler.deleteTask);
 
 
 export { taskRouter };

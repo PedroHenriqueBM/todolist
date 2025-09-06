@@ -4,8 +4,8 @@ import { envConfig } from "./infraestructure/EnvModule/EnvConfig";
 import path from 'node:path';
 
 const server = Express();
-
 envConfig.load({ path: path.join(__dirname, "infraestructure", "EnvModule", "EnvFiles") })
+
 
 server.use(router);
 
