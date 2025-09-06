@@ -1,4 +1,4 @@
-import { DateFormatError } from "../Error/ErrorTypes/DateFormatError/DateFormatError";
+import { DateFormatError } from "../Error/ErrorTypes/Strategy/DateFormatError/DateFormatError";
 import { IStrategy } from "./IStrategy";
 
 
@@ -10,6 +10,16 @@ const regex = {
 export class Strategy implements IStrategy {
 
     private response: Boolean | undefined = undefined;
+
+    isNumber(field: any): this {
+        this.response = (typeof field === "number");
+        return this;
+    }
+
+    isInt(field: any): this {
+        this.response = Number.isInteger(field);
+        return this;
+    }
 
     isNull(field: any): this {
 

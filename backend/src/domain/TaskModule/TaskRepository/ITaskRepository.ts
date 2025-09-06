@@ -1,4 +1,3 @@
-import { optionalStringField } from "../../Core/Type/OptionalStringField";
 import { ITask } from "../Task/ITask";
 
 interface IReadTasksProps {

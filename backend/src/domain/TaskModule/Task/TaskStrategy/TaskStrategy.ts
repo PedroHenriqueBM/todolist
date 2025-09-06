@@ -1,6 +1,6 @@
 
-import { DateFormatError } from "../../../Core/Error/ErrorTypes/DateFormatError/DateFormatError";
-import { FieldIsNotStringError } from "../../../Core/Error/ErrorTypes/FieldIsNotStringError/FieldIsNotStringError";
+import { DateFormatError } from "../../../Core/Error/ErrorTypes/Strategy/DateFormatError/DateFormatError";
+import { FieldIsNotStringError } from "../../../Core/Error/ErrorTypes/Strategy/FieldIsNotStringError/FieldIsNotStringError";
 import { FieldIsNotUUID } from "../../../Core/Error/ErrorTypes/Strategy/FieldIsNotUUID/FieldIsNotUUID";
 
 import { TypeNotFoundError } from "../../../Core/Error/ErrorTypes/Strategy/TypeNotFoundError/TypeNotFoundError";

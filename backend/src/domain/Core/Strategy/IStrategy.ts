@@ -6,6 +6,9 @@ export interface IStrategy {
     isUndefined(field: any): this;
     isString(field: any): this;
     isDate(field: any, language: String): this;
+    isNumber(field: any): this;
+    isInt(field: any): this
+
 
     checkMaxLengthString(max: number, field: any): this;
     checkMinLengthString(min: number, field: any): this;

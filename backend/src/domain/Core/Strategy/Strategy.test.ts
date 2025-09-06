@@ -164,5 +164,43 @@ describe("Module: Strategy", () => {
 
     })
 
+    describe("Testing Function IsNumber", () => {
+
+
+        test("valid class: Number", () => {
+
+            expect(strategy.isNumber(45).build()).toBe(true)
+
+        })
+
+        test("invalid class: anything other than Number", () => {
+
+            expect(strategy.isNumber("i").build()).toBe(false)
+
+        })
+
+
+
+    })
+
+    describe("Testing Function IsInt", () => {
+
+
+        test("valid class: Int", () => {
+
+            expect(strategy.isInt(45).build()).toBe(true)
+
+        })
+
+        test("invalid class: anything other than Int", () => {
+
+            expect(strategy.isInt("i").build()).toBe(false)
+            expect(strategy.isInt(2.5).build()).toBe(false)
+
+        })
+
+
+
+    })
 
 })
