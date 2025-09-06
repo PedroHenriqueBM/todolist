@@ -1,13 +1,66 @@
 
-import { DateFormatError } from "../../Core/Error/ErrorTypes/DateFormatError/DateFormatError";
-import { FieldIsNotStringError } from "../../Core/Error/ErrorTypes/FieldIsNotStringError/FieldIsNotStringError";
-import { TypeNotFoundError } from "../../Core/Error/ErrorTypes/TypeNotFoundError/TypeNotFoundError";
-import { WrongLengthError } from "../../Core/Error/ErrorTypes/WrongLengthError/WrongLengthError";
-import { Strategy } from "../../Core/Strategy/Strategy";
-import { optionalStringField } from "../../Core/Type/OptionalStringField";
+import { DateFormatError } from "../../../Core/Error/ErrorTypes/DateFormatError/DateFormatError";
+import { FieldIsNotStringError } from "../../../Core/Error/ErrorTypes/FieldIsNotStringError/FieldIsNotStringError";
+import { FieldIsNotUUID } from "../../../Core/Error/ErrorTypes/Strategy/FieldIsNotUUID/FieldIsNotUUID";
+
+import { TypeNotFoundError } from "../../../Core/Error/ErrorTypes/Strategy/TypeNotFoundError/TypeNotFoundError";
+import { WrongLengthError } from "../../../Core/Error/ErrorTypes/Strategy/WrongLengthError/WrongLengthError";
+import { Strategy } from "../../../Core/Strategy/Strategy";
+import { optionalStringField } from "../../../Core/Type/OptionalStringField";
 import { ITaskStrategy } from "./ITaskStrategy";
 
 export class TaskStrategy extends Strategy implements ITaskStrategy {
+
+    checkId(newId: String): void {
+
+        const errorModule = "TaskStrategy/checkId"
+        const errorStatus = 400;
+
+        if (this.isString(newId).not().build()) {
+
+            throw new FieldIsNotStringError({ cause: `Id isn't a string -> ${newId}`, module: errorModule, status: errorStatus });
+
+        } else {
+
+            if (this.isUUID(newId).not().build()) {
+
+                throw new FieldIsNotUUID({ cause: `${newId} isn't UUID`, module: errorModule, status: errorStatus });
+
+            }
+
+        }
+
+    }
+
+    checkCreatedAt(newCreatedAt: String): void {
+        const errorModule = "TaskStrategy/checkCreatedAt";
+        const errorStatus = 400;
+
+        if (this.isString(newCreatedAt).build()) {
+
+            if (this.isDate(newCreatedAt, "ptBr").not().build()) {
+                throw new DateFormatError({ cause: `${newCreatedAt} is in wrong format`, module: errorModule, status: errorStatus });
+            }
+
+        } else {
+            throw new TypeNotFoundError({ cause: `CreatedAt type not allowed -> ${newCreatedAt}`, module: errorModule, status: errorStatus })
+        }
+    }
+
+    checkUpdatedAt(newUpdatedAt: optionalStringField): void {
+        const errorModule = "TaskStrategy/checkUpdatedAt";
+        const errorStatus = 400;
+
+        if (this.isString(newUpdatedAt).build()) {
+
+            if (this.isDate(newUpdatedAt, "ptBr").not().build()) {
+                throw new DateFormatError({ cause: `${newUpdatedAt} is in wrong format`, module: errorModule, status: errorStatus });
+            }
+
+        } else if (this.isNull(newUpdatedAt).not().build() && this.isUndefined(newUpdatedAt).not().build()) {
+            throw new TypeNotFoundError({ cause: `DeadLine type not allowed -> ${newUpdatedAt}`, module: errorModule, status: errorStatus })
+        }
+    }
 
     checkTitle(newTitle: String): void {
 
@@ -18,7 +71,7 @@ export class TaskStrategy extends Strategy implements ITaskStrategy {
 
         if (this.isString(newTitle).not().build()) {
 
-            throw new FieldIsNotStringError({ cause: `Title isn't a string -> ${newTitle}`, module: "TaskStrategy/CheckTitle", status: 400 });
+            throw new FieldIsNotStringError({ cause: `Title isn't a string -> ${newTitle}`, module: errorModule, status: errorStatus });
 
         } else {
 

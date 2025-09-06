@@ -28,7 +28,7 @@ class GenericError implements IGenericError {
 
     constructor(props: IGenericErrorProps) {
 
-        const date = new Date().toString();
+        const date = new Date().toLocaleDateString("pt-BR");
         const id = randomUUID().toString();
 
         this.setDate(date);

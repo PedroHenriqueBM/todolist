@@ -13,7 +13,10 @@ export interface IStrategy {
     checkMaxLengthNumber(max: number, field: any): this;
     checkMinLengthNumber(min: number, field: any): this;
 
+    isUUID(field: any): this;
+
     build(): Boolean | undefined;
     not(): this;
+
 
 }

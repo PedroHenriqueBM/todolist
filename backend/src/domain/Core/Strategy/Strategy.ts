@@ -38,6 +38,7 @@ export class Strategy implements IStrategy {
         return this;
     }
 
+
     checkMaxLengthString(max: number, field: any): this {
         this.response = (field.trim().length <= max);
         return this;
@@ -56,6 +57,11 @@ export class Strategy implements IStrategy {
         return this;
     }
 
+    isUUID(field: any): this {
+        const regex = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
+        this.response = regex.test(field);
+        return this
+    }
 
     not(): this {
         this.response = !this.response;

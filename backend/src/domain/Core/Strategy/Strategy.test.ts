@@ -1,4 +1,5 @@
 import { Strategy } from "./Strategy"
+import { randomUUID } from 'node:crypto'
 
 const strategy = new Strategy();
 
@@ -141,6 +142,25 @@ describe("Module: Strategy", () => {
             expect(strategy.checkMinLengthNumber(5, 4).build()).toBe(false)
             expect(strategy.checkMinLengthNumber(5, 3).build()).toBe(false)
         })
+
+    })
+
+    describe("Testing Function IsUUID", () => {
+
+
+        test("valid class: UUID", () => {
+
+            expect(strategy.isUUID(randomUUID().toString()).build()).toBe(true)
+
+        })
+
+        test("invalid class: anything other than UUID", () => {
+
+            expect(strategy.isUUID("i").build()).toBe(false)
+
+        })
+
+
 
     })
 

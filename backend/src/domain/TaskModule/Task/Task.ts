@@ -1,18 +1,29 @@
 
 import { optionalStringField } from "../../Core/Type/OptionalStringField";
-import { ITaskStrategy } from "../TaskStrategy/ITaskStrategy";
+import { ITaskStrategy } from "./TaskStrategy/ITaskStrategy";
 import { ITask } from "./ITask";
+
 
 export class Task implements ITask {
 
+    private id: String;
     private title: String;
     private description: optionalStringField;
     private deadLine: optionalStringField;
     private status: String;
+    private createdAt: String;
+    private updatedAt: optionalStringField;
 
     constructor(private taskStrategy: ITaskStrategy) { }
 
-
+    getId(): String {
+        return this.id;
+    }
+    setId(newId: String): this {
+        this.taskStrategy.checkId(newId);
+        this.id = newId;
+        return this;
+    }
     getTitle(): String {
         return this.title;
     }
@@ -45,7 +56,22 @@ export class Task implements ITask {
         this.status = newStatus;
         return this;
     }
-
+    getCreatedAt(): String {
+        return this.createdAt;
+    }
+    setCreatedAt(newCreatedAt: String): this {
+        this.taskStrategy.checkCreatedAt(newCreatedAt);
+        this.createdAt = newCreatedAt;
+        return this;
+    }
+    getUpdatedAt(): optionalStringField {
+        return this.updatedAt;
+    }
+    setUpdatedAt(newUpdatedAt: optionalStringField): this {
+        this.setUpdatedAt(newUpdatedAt);
+        this.updatedAt = newUpdatedAt;
+        return this;
+    }
     toJSON(): this {
         const copy = this;
         if (copy.taskStrategy) {

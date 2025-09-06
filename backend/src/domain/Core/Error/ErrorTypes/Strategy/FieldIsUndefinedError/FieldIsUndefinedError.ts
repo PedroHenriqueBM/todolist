@@ -1,4 +1,4 @@
-import { GenericError, IInstantiatedErrorProps } from "../GenericError/GenericError";
+import { GenericError, IInstantiatedErrorProps } from "../../GenericError/GenericError";
 import { IFieldIsUndefinedError } from "./IFieldIsUndefinedError";
 
 

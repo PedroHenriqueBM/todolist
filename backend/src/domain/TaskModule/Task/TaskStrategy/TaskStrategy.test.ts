@@ -1,7 +1,22 @@
 import { TaskStrategy } from "./TaskStrategy";
-
+import { randomUUID } from 'node:crypto';
 
 const taskStrategy = new TaskStrategy();
+
+describe("Testing Function checkId", () => {
+
+    test("valid class: string whit format UUID", () => {
+        expect(() => { taskStrategy.checkId(randomUUID()) }).not.toThrow()
+    });
+
+    test("invalid class: anything other than string with format UUID ", () => {
+
+        expect(() => { taskStrategy.checkId("oi") }).toThrow("The field must be an UUID");
+
+    });
+
+
+})
 
 describe("Testing Function checkTitle", () => {
 
@@ -65,6 +80,36 @@ describe("Testing Function checkStatus", () => {
 
         expect(() => { taskStrategy.checkStatus("oi") }).toThrow("The field type cannot be defined");
 
+    });
+
+
+})
+
+describe("Testing Function checkCreatedAt", () => {
+
+    test("valid class: string whit format dd/mm/yyyy", () => {
+        expect(() => { taskStrategy.checkCreatedAt("11/12/2005") }).not.toThrow()
+    });
+
+    test("invalid class: anything other than string with format dd/mm/yyyy ", () => {
+
+        expect(() => { taskStrategy.checkCreatedAt(true as any) }).toThrow("The field type cannot be defined ");
+        expect(() => { taskStrategy.checkCreatedAt("1/1/2025") }).toThrow("The date is in wrong format");
+    });
+
+
+})
+
+describe("Testing Function checkUpdatedAt", () => {
+
+    test("valid class: string whit format dd/mm/yyyy", () => {
+        expect(() => { taskStrategy.checkUpdatedAt("11/12/2005") }).not.toThrow()
+    });
+
+    test("invalid class: anything other than string with format dd/mm/yyyy ", () => {
+
+        expect(() => { taskStrategy.checkUpdatedAt(true as any) }).toThrow("The field type cannot be defined ");
+        expect(() => { taskStrategy.checkUpdatedAt("1/1/2025") }).toThrow("The date is in wrong format");
     });
 
 

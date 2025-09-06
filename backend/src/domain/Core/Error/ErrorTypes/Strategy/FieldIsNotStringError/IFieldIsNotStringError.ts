@@ -1,4 +1,4 @@
-import { IGenericError } from "../GenericError/IGenericError";
+import { IGenericError } from "../../GenericError/IGenericError";
 
 export interface IFieldIsNotStringError extends IGenericError {
 
