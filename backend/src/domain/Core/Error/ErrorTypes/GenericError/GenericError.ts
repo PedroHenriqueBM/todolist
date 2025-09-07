@@ -2,28 +2,28 @@ import { IGenericError } from "./IGenericError";
 import { randomUUID } from 'node:crypto';
 
 interface IGenericErrorProps {
-    type: String;
-    message: String;
-    cause: String;
-    module: String;
-    status: Number;
+    type: string;
+    message: string;
+    cause: string | IGenericError;
+    module: string;
+    status: number;
 }
 
 interface IInstantiatedErrorProps {
-    cause: String;
-    module: String;
-    status: Number;
+    cause: string | IGenericError;
+    module: string;
+    status: number;
 }
 
 class GenericError implements IGenericError {
 
-    private id: String;
-    private type: String;
-    private message: String;
-    private date: String;
-    private cause: String;
-    private module: String;
-    private status: Number;
+    private id: string;
+    private type: string;
+    private message: string;
+    private date: string;
+    private cause: string | IGenericError;
+    private module: string;
+    private status: number;
 
 
     constructor(props: IGenericErrorProps) {
@@ -44,49 +44,53 @@ class GenericError implements IGenericError {
     }
 
 
-    getId(): String {
+    getId(): string {
         return this.id;
     }
-    setId(newId: String): void {
+    setId(newId: string): void {
         this.id = newId;
     }
 
-    getType(): String {
+    getType(): string {
         return this.type;
     }
-    setType(newType: String): void {
+    setType(newType: string): void {
         this.type = newType;
     }
 
-    getMessage(): String {
+    getMessage(): string {
         return this.message;
     }
-    setMessage(newMessage: String): void {
+    setMessage(newMessage: string): void {
         this.message = newMessage;
     }
-    getDate(): String {
+    getDate(): string {
         return this.date;
     }
-    setDate(newDate: String): void {
+    setDate(newDate: string): void {
         this.date = newDate;
     }
-    getCause(): String {
+    getCause(): string | IGenericError {
         return this.cause;
     }
-    setCause(newCause: String): void {
+    setCause(newCause: string | IGenericError): void {
         this.cause = newCause;
     }
-    getModule(): String {
+    getModule(): string {
         return this.module;
     }
-    setModule(newModule: String): void {
+    setModule(newModule: string): void {
         this.module = newModule;
     }
-    getStatus(): Number {
+    getStatus(): number {
         return this.status;
     }
-    setStatus(newStatus: Number): void {
+    setStatus(newStatus: number): void {
         this.status = newStatus;
+    }
+
+    toString(): string {
+        return JSON.stringify(this);
     }
 
 

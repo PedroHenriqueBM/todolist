@@ -2,16 +2,16 @@ import { optionalStringField } from "../../Core/Type/OptionalStringField";
 import { ITask } from "../Task/ITask";
 
 interface IReadTasksProps {
-    limit: Number;
-    offset: Number;
+    limit: number;
+    offset: number;
 }
 
 interface IReadOneTaskByTitleProps {
-    title: String;
+    title: string;
 }
 
 interface IReadOneTaskByIdProps {
-    id: String;
+    id: string;
 }
 
 interface ICreateTaskProps extends IReadOneTaskByTitleProps {
@@ -23,14 +23,15 @@ interface IDeleteTaskProps extends IReadOneTaskByIdProps {
 }
 
 interface IUpdateTaskProps extends ICreateTaskProps, IReadOneTaskByIdProps {
-    status: String;
+    status: string;
 }
 
 
 
 interface ITaskService {
 
-    readTasks(props: IReadTasksProps): Promise<ITask[]>;
+    countTasks(): Promise<number>;
+    readTasks(props: IReadTasksProps): Promise<{ task: ITask[]; all: number }>;
     readOneTaskByTitle(props: IReadOneTaskByTitleProps): Promise<ITask>
     readOneTaskById(props: IReadOneTaskByIdProps): Promise<ITask>;
     createTask(props: ICreateTaskProps): Promise<void>;

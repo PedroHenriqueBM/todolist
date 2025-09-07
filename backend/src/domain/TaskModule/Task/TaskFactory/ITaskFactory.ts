@@ -3,7 +3,7 @@ import { ITask } from "../ITask";
 
 interface ITaskFactoryProps {
     id: optionalStringField;
-    title: String;
+    title: string;
     description: optionalStringField;
     deadLine: optionalStringField;
     status: optionalStringField;

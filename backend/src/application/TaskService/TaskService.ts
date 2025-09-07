@@ -9,7 +9,10 @@ export class TaskService implements ITaskService {
 
     constructor(private taskRepository: ITaskRepository) { }
 
-    async readTasks(props: IReadTasksProps): Promise<ITask[]> {
+    async countTasks(): Promise<number> {
+        return await this.taskRepository.countTasks();
+    }
+    async readTasks(props: IReadTasksProps): Promise<{ task: ITask[]; all: number }> {
         return await this.taskRepository.readTasks(props);
     }
     async readOneTaskByTitle(props: IReadOneTaskByTitleProps): Promise<ITask> {
@@ -28,6 +31,7 @@ export class TaskService implements ITaskService {
         return task;
     }
     async createTask(props: ICreateTaskProps): Promise<void> {
+
 
         const task = new TaskFactory().create({
             id: undefined,

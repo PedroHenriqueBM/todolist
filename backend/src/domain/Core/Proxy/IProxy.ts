@@ -2,15 +2,17 @@
 export interface IProxyExecutionProps {
     operation: Function,
     hateoas: Object,
-    name: String
+    name: string
 }
 
 export interface IProxyResponse {
     status: number,
     data: any,
     hateoas: Object,
-    name: String
+    name: string
 }
+
+
 
 export interface IProxy {
 

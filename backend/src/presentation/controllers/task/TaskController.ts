@@ -1,18 +1,49 @@
 import { NextFunction, Request, Response } from "express";
 import { ICreateTaskProps, ITaskService, IUpdateTaskProps } from "../../../domain/TaskModule/TaskService/ITaskService";
 import { IProxy } from "../../../domain/Core/Proxy/IProxy";
+import { ITaskControllerStrategy } from "./TaskControllerStrategy/ITaskControllerStrategy";
 
+interface IHateoas {
+    [key: string]: {
+        method: string;
+        url: string;
+        query?: Record<string, string>;
+        params?: Record<string, string>;
+        body?: Record<string, string>;
+    }
+}
 
 export class TaskController {
+
+
 
 
     constructor(
         private taskService: ITaskService,
         private proxy: IProxy,
-        private hateoas: Object
-    ) { }
+        private hateoas: IHateoas,
+        private controllerStrategy: ITaskControllerStrategy
+    ) {
 
-    async readAllTasks(req: Request, res: Response) {
+    }
+
+
+    countAllTasks = async (req: Request, res: Response) => {
+
+        const result = await this.proxy.execute({
+            hateoas: this.hateoas,
+            name: "countAllTasks",
+            operation: async () => {
+
+                return await this.taskService.countTasks()
+
+            }
+        });
+
+        res.status(result.status).send(result);
+    }
+
+    readAllTasks = async (req: Request, res: Response) => {
 
         const result = await this.proxy.execute({
             hateoas: this.hateoas,
@@ -22,7 +53,8 @@ export class TaskController {
                 const limit = parseInt(req.query.limit as string);
                 const offset = parseInt(req.query.offset as string);
 
-                return await this.taskService.readTasks({ limit: limit, offset: offset })
+                this.controllerStrategy.checkReadAllTasks(limit, offset);
+                return await this.taskService.readTasks({ limit: limit, offset: (offset - 1) * limit })
 
 
             }
@@ -32,14 +64,16 @@ export class TaskController {
 
     }
 
-    async readTaskById(req: Request, res: Response) {
+    readTaskById = async (req: Request, res: Response) => {
 
         const result = await this.proxy.execute({
             hateoas: this.hateoas,
             name: "readTaskById",
             operation: async () => {
 
+
                 const id = req.params.id
+                this.controllerStrategy.checkReadTaskById(id)
                 return await this.taskService.readOneTaskById({ id: id });
 
 
@@ -50,7 +84,7 @@ export class TaskController {
 
     }
 
-    async readTaskByTitle(req: Request, res: Response) {
+    readTaskByTitle = async (req: Request, res: Response) => {
 
         const result = await this.proxy.execute({
             hateoas: this.hateoas,
@@ -58,6 +92,7 @@ export class TaskController {
             operation: async () => {
 
                 const title = req.query.title as string;
+                this.controllerStrategy.checkReadTaskByTitle(title);
                 return await this.taskService.readOneTaskByTitle({ title: title });
 
 
@@ -68,14 +103,14 @@ export class TaskController {
 
     }
 
-    async createTask(req: Request, res: Response) {
+    createTask = async (req: Request, res: Response) => {
 
         const result = await this.proxy.execute({
             hateoas: this.hateoas,
             name: "createTask",
             operation: async () => {
-
                 const props: ICreateTaskProps = req.body;
+                this.controllerStrategy.checkCreateTask(props.title, props.description, props.deadLine);
                 return await this.taskService.createTask(props);
 
 
@@ -86,7 +121,7 @@ export class TaskController {
 
     }
 
-    async updateTask(req: Request, res: Response) {
+    updateTask = async (req: Request, res: Response) => {
 
         const result = await this.proxy.execute({
             hateoas: this.hateoas,
@@ -95,6 +130,8 @@ export class TaskController {
 
                 const props: Omit<IUpdateTaskProps, "id"> = req.body;
                 const id = req.params.id
+
+                this.controllerStrategy.checkUpdateTask(id, props.title, props.deadLine, props.description, props.status)
                 return await this.taskService.updateTask({ id: id, ...props });
 
             }
@@ -104,7 +141,7 @@ export class TaskController {
 
     }
 
-    async deleteTask(req: Request, res: Response) {
+    deleteTask = async (req: Request, res: Response) => {
 
         const result = await this.proxy.execute({
             hateoas: this.hateoas,
@@ -112,6 +149,7 @@ export class TaskController {
             operation: async () => {
 
                 const id = req.params.id
+                this.controllerStrategy.checkDeleteTask(id);
                 return await this.taskService.deleteTask({ id: id });
 
             }

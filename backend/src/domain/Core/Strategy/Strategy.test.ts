@@ -44,7 +44,7 @@ describe("Module: Strategy", () => {
     describe("Testing Function IsString", () => {
 
 
-        test("valid class: String", () => {
+        test("valid class: string", () => {
 
             expect(strategy.isString("Oi").build()).toBe(true)
 
@@ -82,13 +82,13 @@ describe("Module: Strategy", () => {
     describe("Testing Function IcheckMaxLengthString", () => {
 
 
-        test("valid class: String <= max", () => {
+        test("valid class: string <= max", () => {
 
             expect(strategy.checkMaxLengthString(5, "1").build()).toBe(true)
             expect(strategy.checkMaxLengthString(5, "12345").build()).toBe(true)
         })
 
-        test("invalid class: String > max", () => {
+        test("invalid class: string > max", () => {
 
             expect(strategy.checkMaxLengthString(5, "123456").build()).toBe(false)
             expect(strategy.checkMaxLengthString(5, "123457").build()).toBe(false)
@@ -98,13 +98,13 @@ describe("Module: Strategy", () => {
 
     describe("Testing Function IcheckMinLengthString", () => {
 
-        test("valid class: String >= min", () => {
+        test("valid class: string >= min", () => {
 
             expect(strategy.checkMinLengthString(5, "12345").build()).toBe(true)
             expect(strategy.checkMinLengthString(5, "123456").build()).toBe(true)
         })
 
-        test("invalid class: String < min", () => {
+        test("invalid class: string < min", () => {
 
             expect(strategy.checkMinLengthString(5, "1234").build()).toBe(false)
             expect(strategy.checkMinLengthString(5, "123").build()).toBe(false)
@@ -115,13 +115,13 @@ describe("Module: Strategy", () => {
     describe("Testing Function IcheckMaxLengthNumber", () => {
 
 
-        test("valid class: Number <= max", () => {
+        test("valid class: number <= max", () => {
 
             expect(strategy.checkMaxLengthNumber(5, 5).build()).toBe(true)
             expect(strategy.checkMaxLengthNumber(5, 4).build()).toBe(true)
         })
 
-        test("invalid class: Number > max", () => {
+        test("invalid class: number > max", () => {
 
             expect(strategy.checkMaxLengthNumber(5, 6).build()).toBe(false)
             expect(strategy.checkMaxLengthNumber(5, 7).build()).toBe(false)
@@ -131,13 +131,13 @@ describe("Module: Strategy", () => {
 
     describe("Testing Function IcheckMinLengthNumber", () => {
 
-        test("valid class: Number >= min", () => {
+        test("valid class: number >= min", () => {
 
             expect(strategy.checkMinLengthNumber(5, 5).build()).toBe(true)
             expect(strategy.checkMinLengthNumber(5, 6).build()).toBe(true)
         })
 
-        test("invalid class: String < min", () => {
+        test("invalid class: string < min", () => {
 
             expect(strategy.checkMinLengthNumber(5, 4).build()).toBe(false)
             expect(strategy.checkMinLengthNumber(5, 3).build()).toBe(false)
@@ -167,13 +167,13 @@ describe("Module: Strategy", () => {
     describe("Testing Function IsNumber", () => {
 
 
-        test("valid class: Number", () => {
+        test("valid class: number", () => {
 
             expect(strategy.isNumber(45).build()).toBe(true)
 
         })
 
-        test("invalid class: anything other than Number", () => {
+        test("invalid class: anything other than number", () => {
 
             expect(strategy.isNumber("i").build()).toBe(false)
 

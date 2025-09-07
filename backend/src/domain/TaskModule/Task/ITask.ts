@@ -8,11 +8,11 @@ enum taskStatus {
 
 interface ITask {
 
-    getId(): String;
-    setId(newId: String): this;
+    getId(): string;
+    setId(newId: string): this;
 
-    getTitle(): String;
-    setTitle(newTitle: String): this;
+    getTitle(): string;
+    setTitle(newTitle: string): this;
 
     getDescription(): optionalStringField;
     setDescription(newDescription: optionalStringField): this;
@@ -20,11 +20,11 @@ interface ITask {
     getDeadLine(): optionalStringField;
     setDeadLine(newDeadLine: optionalStringField): void;
 
-    getStatus(): String;
-    setStatus(newStatus: String): this;
+    getStatus(): string;
+    setStatus(newStatus: string): this;
 
-    getCreatedAt(): String;
-    setCreatedAt(newCreatedAt: String): this;
+    getCreatedAt(): string;
+    setCreatedAt(newCreatedAt: string): this;
 
     getUpdatedAt(): optionalStringField;
     setUpdatedAt(newUpdatedAt: optionalStringField): this;

@@ -1,2 +1,2 @@
 
-export type optionalStringField = String | undefined | null;
+export type optionalStringField = string | undefined | null;

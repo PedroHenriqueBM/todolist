@@ -1,25 +1,27 @@
 export interface IGenericError {
 
-    getId(): String;
-    setId(newId: String): void;
+    getId(): string;
+    setId(newId: string): void;
 
-    getType(): String;
-    setType(newType: String): void;
+    getType(): string;
+    setType(newType: string): void;
 
-    getMessage(): String;
-    setMessage(newMessage: String): void;
+    getMessage(): string;
+    setMessage(newMessage: string): void;
 
-    getDate(): String;
-    setDate(newDate: String): void;
+    getDate(): string;
+    setDate(newDate: string): void;
 
-    getCause(): String;
-    setCause(newCause: String): void;
+    getCause(): string | IGenericError;
+    setCause(newCause: string | IGenericError): void;
 
-    getModule(): String;
-    setModule(newModule: String): void;
+    getModule(): string;
+    setModule(newModule: string): void;
 
-    getStatus(): Number;
-    setStatus(newStatus: Number): void;
+    getStatus(): number;
+    setStatus(newStatus: number): void;
+
+    toString(): string;
 
 
 

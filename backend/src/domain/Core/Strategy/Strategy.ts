@@ -35,7 +35,7 @@ export class Strategy implements IStrategy {
         return this;
     }
 
-    isDate(field: any, language: String): this {
+    isDate(field: any, language: string): this {
 
         let ln = language as keyof typeof regex
         let format = regex[ln];
@@ -59,11 +59,11 @@ export class Strategy implements IStrategy {
     }
 
     checkMaxLengthNumber(max: number, field: any): this {
-        this.response = (Number(field) <= max);
+        this.response = (field <= max);
         return this;
     }
     checkMinLengthNumber(min: number, field: any): this {
-        this.response = (Number(field) >= min);
+        this.response = (field >= min);
         return this;
     }
 

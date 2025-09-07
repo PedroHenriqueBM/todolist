@@ -7,6 +7,7 @@ import { randomUUID } from 'node:crypto';
 export class TaskFactory implements ITaskFactory {
 
     create(props: ITaskFactoryProps): ITask {
+
         const task = new Task(new TaskStrategy());
 
         if (props.id) {
@@ -34,6 +35,7 @@ export class TaskFactory implements ITaskFactory {
             .setUpdatedAt(props.updatedAt);
 
         return task;
+
     }
 
 }

@@ -1,6 +1,6 @@
 
 interface ILoadEnvconfig {
-    path: String
+    path: string
 }
 
 interface IEnvConfig {

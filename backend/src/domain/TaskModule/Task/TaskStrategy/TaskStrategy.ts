@@ -11,7 +11,7 @@ import { ITaskStrategy } from "./ITaskStrategy";
 
 export class TaskStrategy extends Strategy implements ITaskStrategy {
 
-    checkId(newId: String): void {
+    checkId(newId: string): void {
 
         const errorModule = "TaskStrategy/checkId"
         const errorStatus = 400;
@@ -31,8 +31,7 @@ export class TaskStrategy extends Strategy implements ITaskStrategy {
         }
 
     }
-
-    checkCreatedAt(newCreatedAt: String): void {
+    checkCreatedAt(newCreatedAt: string): void {
         const errorModule = "TaskStrategy/checkCreatedAt";
         const errorStatus = 400;
 
@@ -46,7 +45,6 @@ export class TaskStrategy extends Strategy implements ITaskStrategy {
             throw new TypeNotFoundError({ cause: `CreatedAt type not allowed -> ${newCreatedAt}`, module: errorModule, status: errorStatus })
         }
     }
-
     checkUpdatedAt(newUpdatedAt: optionalStringField): void {
         const errorModule = "TaskStrategy/checkUpdatedAt";
         const errorStatus = 400;
@@ -61,8 +59,7 @@ export class TaskStrategy extends Strategy implements ITaskStrategy {
             throw new TypeNotFoundError({ cause: `DeadLine type not allowed -> ${newUpdatedAt}`, module: errorModule, status: errorStatus })
         }
     }
-
-    checkTitle(newTitle: String): void {
+    checkTitle(newTitle: string): void {
 
         const minLength = 1;
         const maxLength = 100;
@@ -119,7 +116,7 @@ export class TaskStrategy extends Strategy implements ITaskStrategy {
         const errorModule = "TaskStrategy/checkDeadLine";
         const errorStatus = 400;
 
-        if (this.isString(newDeadLine)) {
+        if (this.isString(newDeadLine).build()) {
 
             if (this.isDate(newDeadLine, "ptBr").not().build()) {
                 throw new DateFormatError({ cause: `${newDeadLine} is in wrong format`, module: errorModule, status: errorStatus });
@@ -130,17 +127,57 @@ export class TaskStrategy extends Strategy implements ITaskStrategy {
         }
 
     }
-    checkStatus(newStatus: String): void {
+    checkStatus(newStatus: string): void {
 
         const errorModule = "TaskStrategy/checkDescription";
         const errorStatus = 400;
 
 
-        if (!(this.isString(newStatus) && (newStatus === "PENDING" || newStatus === "COMPLETED"))) {
+        if (!(this.isString(newStatus).build() && (newStatus === "PENDING" || newStatus === "COMPLETED"))) {
             throw new TypeNotFoundError({ cause: `Status type not allowed -> ${newStatus}`, module: errorModule, status: errorStatus })
         }
 
 
+
+    }
+    checkOptionalStatus(newStatus: any): void {
+
+        const errorModule = "TaskStrategy/checkDescription";
+        const errorStatus = 400;
+
+
+        if (this.isString(newStatus).build()) {
+
+            if (!(newStatus === "PENDING" || newStatus === "COMPLETED")) {
+                throw new TypeNotFoundError({ cause: `Status type not allowed -> ${newStatus}`, module: errorModule, status: errorStatus })
+            }
+
+        } else if (this.isNull(newStatus).not().build() && this.isUndefined(newStatus).not().build()) {
+            throw new TypeNotFoundError({ cause: `Status type not allowed -> ${newStatus}`, module: errorModule, status: errorStatus })
+        }
+
+
+    }
+    checkOptionalTitle(newTitle: any): void {
+
+        const minLength = 1;
+        const maxLength = 100;
+        const errorModule = "TaskStrategy/checkTitle"
+        const errorStatus = 400;
+
+        if (this.isString(newTitle).build()) {
+            if (this.checkMinLengthString(minLength, newTitle).not().build()) {
+
+                throw new WrongLengthError({ cause: `${newTitle} < min length(1)`, module: errorModule, status: errorStatus });
+
+            } else if (this.checkMaxLengthString(maxLength, newTitle).not().build()) {
+
+                throw new WrongLengthError({ cause: `${newTitle} > max length(200)`, module: errorModule, status: errorStatus });
+
+            }
+        } else if (this.isNull(newTitle).not().build() && this.isUndefined(newTitle).not().build()) {
+            throw new TypeNotFoundError({ cause: `Title type not allowed -> ${newTitle}`, module: errorModule, status: errorStatus })
+        }
 
     }
 

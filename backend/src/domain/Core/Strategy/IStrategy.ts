@@ -5,7 +5,7 @@ export interface IStrategy {
     isNull(field: any): this;
     isUndefined(field: any): this;
     isString(field: any): this;
-    isDate(field: any, language: String): this;
+    isDate(field: any, language: string): this;
     isNumber(field: any): this;
     isInt(field: any): this
 

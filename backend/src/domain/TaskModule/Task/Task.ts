@@ -6,28 +6,28 @@ import { ITask } from "./ITask";
 
 export class Task implements ITask {
 
-    private id: String;
-    private title: String;
+    private id: string;
+    private title: string;
     private description: optionalStringField;
     private deadLine: optionalStringField;
-    private status: String;
-    private createdAt: String;
+    private status: string;
+    private createdAt: string;
     private updatedAt: optionalStringField;
 
     constructor(private taskStrategy: ITaskStrategy) { }
 
-    getId(): String {
+    getId(): string {
         return this.id;
     }
-    setId(newId: String): this {
+    setId(newId: string): this {
         this.taskStrategy.checkId(newId);
         this.id = newId;
         return this;
     }
-    getTitle(): String {
+    getTitle(): string {
         return this.title;
     }
-    setTitle(newTitle: String): this {
+    setTitle(newTitle: string): this {
         this.taskStrategy.checkTitle(newTitle);
         this.title = newTitle;
         return this;
@@ -45,31 +45,31 @@ export class Task implements ITask {
     }
     setDeadLine(newDeadLine: optionalStringField): this {
         this.taskStrategy.checkDeadLine(newDeadLine);
-        this.deadLine = newDeadLine;
+        this.deadLine = newDeadLine ? new Date(`${newDeadLine}`).toISOString() : newDeadLine;
         return this;
     }
-    getStatus(): String {
+    getStatus(): string {
         return this.status;
     }
-    setStatus(newStatus: String): this {
+    setStatus(newStatus: string): this {
         this.taskStrategy.checkStatus(newStatus);
         this.status = newStatus;
         return this;
     }
-    getCreatedAt(): String {
+    getCreatedAt(): string {
         return this.createdAt;
     }
-    setCreatedAt(newCreatedAt: String): this {
+    setCreatedAt(newCreatedAt: string): this {
         this.taskStrategy.checkCreatedAt(newCreatedAt);
-        this.createdAt = newCreatedAt;
+        this.createdAt = newCreatedAt ? new Date(`${newCreatedAt}`).toISOString() : newCreatedAt;
         return this;
     }
     getUpdatedAt(): optionalStringField {
         return this.updatedAt;
     }
     setUpdatedAt(newUpdatedAt: optionalStringField): this {
-        this.setUpdatedAt(newUpdatedAt);
-        this.updatedAt = newUpdatedAt;
+        this.taskStrategy.checkUpdatedAt(newUpdatedAt);
+        this.updatedAt = newUpdatedAt ? new Date(`${newUpdatedAt}`).toISOString() : newUpdatedAt;
         return this;
     }
     toJSON(): this {

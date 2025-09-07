@@ -1,16 +1,16 @@
 import { ITask } from "../Task/ITask";
 
 interface IReadTasksProps {
-    limit: Number;
-    offset: Number;
+    limit: number;
+    offset: number;
 }
 
 interface IReadOneTaskByTitleProps {
-    title: String;
+    title: string;
 }
 
 interface IReadOneTaskByIdProps {
-    id: String;
+    id: string;
 }
 
 interface ICreateTaskProps {
@@ -26,7 +26,8 @@ interface IUpdateTaskProps {
 
 interface ITaskRepository {
 
-    readTasks(props: IReadTasksProps): Promise<ITask[]>;
+    countTasks(): Promise<number>;
+    readTasks(props: IReadTasksProps): Promise<{ task: ITask[]; all: number }>;
     readOneTaskByTitle(props: IReadOneTaskByTitleProps): Promise<ITask | undefined>
     readOneTaskById(props: IReadOneTaskByIdProps): Promise<ITask | undefined>;
     createTask(props: ICreateTaskProps): Promise<void>;
