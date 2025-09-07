@@ -88,7 +88,7 @@ export class TaskPrismaRepository implements ITaskRepository {
                 status: props.task.getStatus().toString() as any,
                 updatedAt: props.task.getUpdatedAt()?.toString()
             }
-        });
+        })
 
     }
     async updateTask(props: IUpdateTaskProps): Promise<void> {

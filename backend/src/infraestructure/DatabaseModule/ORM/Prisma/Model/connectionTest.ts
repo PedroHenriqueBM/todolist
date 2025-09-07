@@ -15,8 +15,6 @@ async function connectionTest() {
             status: 500,
         }));
         await prismaClient.$disconnect();
-        process.exit(1);
-
     }
 }
 

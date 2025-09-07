@@ -4,10 +4,10 @@
   "main": "index.js",
   "scripts": {
     "app:setup": "npm i && npm run prisma:generate && npm run typedoc:generate && npm run app:build",
-    "app:test": "jest",
-    "app:build": "tsc && cpx \"./src/infraestructure/EnvModule/EnvFiles/**/*\" dist/src/infraestructure/EnvModule/EnvFiles && cpx \"./src/infraestructure/EnvModule/EnvFiles/.env.*\" dist/src/infraestructure/EnvModule/EnvFiles",
+    "app:test": "cross-env NODE_ENV=test dotenv -e ./src/infraestructure/EnvModule/EnvFiles/.env.$npm_config_env jest",
     "app:dev": "cross-env NODE_ENV=development nodemon",
     "app:prod": "cross-env NODE_ENV=production node dist/index.js",
+    "app:build": "tsc && cpx \"./src/infraestructure/EnvModule/EnvFiles/**/*\" dist/src/infraestructure/EnvModule/EnvFiles && cpx \"./src/infraestructure/EnvModule/EnvFiles/.env.*\" dist/src/infraestructure/EnvModule/EnvFiles",
     "app:runDatabaseContainer": "docker run -d -p 3307:3306 meu-mysql",
     "app:buildDatabaseContainer": "docker build -t meu-mysql ./devops/dockerfile/Mysql",
     "app:setupDatabaseContainer": "npm run app:buildDatabaseContainer && npm run app:runDatabaseContainer",
@@ -15,10 +15,10 @@
     "prisma:migrate": "dotenv -e ./src/infraestructure/EnvModule/EnvFiles/.env.$npm_config_env prisma migrate dev --name init",
     "typedoc:generate": "npx typedoc"
   },
-  "keywords": [],
+  "keywords": ["javascript","typescript","database","mysql","GOF","Docker","Express"],
   "author": "pedro.brrs.mendonca@gmail.com",
   "license": "ISC",
-  "description": "",
+  "description": "TODO-LIST",
   "dependencies": {
     "@prisma/client": "^6.15.0",
     "cors": "^2.8.5",

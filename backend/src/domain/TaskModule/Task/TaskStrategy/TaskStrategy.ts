@@ -132,8 +132,7 @@ export class TaskStrategy extends Strategy implements ITaskStrategy {
         const errorModule = "TaskStrategy/checkDescription";
         const errorStatus = 400;
 
-
-        if (!(this.isString(newStatus).build() && (newStatus === "PENDING" || newStatus === "COMPLETED"))) {
+        if ((newStatus !== "PENDING" && newStatus !== "COMPLETED")) {
             throw new TypeNotFoundError({ cause: `Status type not allowed -> ${newStatus}`, module: errorModule, status: errorStatus })
         }
 
