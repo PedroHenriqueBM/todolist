@@ -1,0 +1,37 @@
+
+import { optionalStringField } from "../../Core/Type/OptionalStringField";
+
+enum taskStatus {
+    PENDING = "PENDING",
+    COMPLETED = "COMPLETED"
+}
+
+interface ITask {
+
+    getId(): string;
+    setId(newId: string): this;
+
+    getTitle(): string;
+    setTitle(newTitle: string): this;
+
+    getDescription(): optionalStringField;
+    setDescription(newDescription: optionalStringField): this;
+
+    getDeadLine(): optionalStringField;
+    setDeadLine(newDeadLine: optionalStringField): void;
+
+    getStatus(): string;
+    setStatus(newStatus: string): this;
+
+    getCreatedAt(): string;
+    setCreatedAt(newCreatedAt: string): this;
+
+    getUpdatedAt(): optionalStringField;
+    setUpdatedAt(newUpdatedAt: optionalStringField): this;
+
+    toJSON(): this;
+
+}
+
+
+export { taskStatus, ITask }
