@@ -7,6 +7,7 @@ import prismaClient from "../Model/prismaClient";
 
 export class TaskPrismaRepository implements ITaskRepository {
 
+
     async countTasks(): Promise<number> {
         return await prismaClient.task.count();
     }
@@ -15,7 +16,7 @@ export class TaskPrismaRepository implements ITaskRepository {
 
         const tasks = (await prismaClient
             .task
-            .findMany({ take: props.limit, skip: props.offset }))
+            .findMany({ take: props.limit, skip: props.offset, orderBy: [{ status: 'desc' }, { deadLine: 'asc' }] }))
             .map((value) => {
                 return new TaskFactory().create({
                     id: value.id,
@@ -82,11 +83,11 @@ export class TaskPrismaRepository implements ITaskRepository {
             data: {
                 title: props.task.getTitle().toString(),
                 id: props.task.getId().toString(),
-                deadLine: props.task.getDeadLine()?.toString(),
+                deadLine: props.task.getDeadLineIsoString(),
                 description: props.task.getDescription()?.toString(),
-                createdAt: props.task.getCreatedAt().toString(),
+                createdAt: props.task.getCreateAtIsoString()!,
                 status: props.task.getStatus().toString() as any,
-                updatedAt: props.task.getUpdatedAt()?.toString()
+                updatedAt: props.task.getUpdatedAtIsoString()!,
             }
         })
 
@@ -96,10 +97,10 @@ export class TaskPrismaRepository implements ITaskRepository {
         await prismaClient.task.update({
             data: {
                 title: props.task.getTitle().toString(),
-                deadLine: props.task.getDeadLine()?.toString(),
+                deadLine: props.task.getDeadLineIsoString(),
                 description: props.task.getDescription()?.toString(),
-                status: props.task.getStatus().toString() as any,
-                updatedAt: props.task.getUpdatedAt()?.toString()
+                status: props.task.getStatus() as any,
+                updatedAt: props.task.getUpdatedAtIsoString()!,
             },
             where: {
                 id: props.task.getId()

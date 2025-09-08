@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "app:setup": "npm i && npm run prisma:generate && npm run typedoc:generate && npm run app:build",
+    "app:setup": "npm i && npm run typedoc:generate && npm run app:build",
     "app:test": "cross-env NODE_ENV=test dotenv -e ./src/infraestructure/EnvModule/EnvFiles/.env.$npm_config_env jest",
     "app:dev": "cross-env NODE_ENV=development nodemon",
     "app:prod": "cross-env NODE_ENV=production node dist/index.js",

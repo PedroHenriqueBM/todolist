@@ -16,6 +16,17 @@ export class Task implements ITask {
 
     constructor(private taskStrategy: ITaskStrategy) { }
 
+
+    getDeadLineIsoString(): optionalStringField {
+        return this.taskStrategy.parseBRDateToISO(this.deadLine!)
+    }
+    getCreateAtIsoString(): optionalStringField {
+        return this.taskStrategy.parseBRDateToISO(this.createdAt!)
+    }
+    getUpdatedAtIsoString(): optionalStringField {
+        return this.taskStrategy.parseBRDateToISO(this.updatedAt!)
+    }
+
     getId(): string {
         return this.id;
     }
@@ -45,7 +56,7 @@ export class Task implements ITask {
     }
     setDeadLine(newDeadLine: optionalStringField): this {
         this.taskStrategy.checkDeadLine(newDeadLine);
-        this.deadLine = newDeadLine ? new Date(`${newDeadLine}`).toISOString() : newDeadLine;
+        this.deadLine = newDeadLine;
         return this;
     }
     getStatus(): string {
@@ -61,7 +72,7 @@ export class Task implements ITask {
     }
     setCreatedAt(newCreatedAt: string): this {
         this.taskStrategy.checkCreatedAt(newCreatedAt);
-        this.createdAt = newCreatedAt ? new Date(`${newCreatedAt}`).toISOString() : newCreatedAt;
+        this.createdAt = newCreatedAt;
         return this;
     }
     getUpdatedAt(): optionalStringField {
@@ -69,7 +80,7 @@ export class Task implements ITask {
     }
     setUpdatedAt(newUpdatedAt: optionalStringField): this {
         this.taskStrategy.checkUpdatedAt(newUpdatedAt);
-        this.updatedAt = newUpdatedAt ? new Date(`${newUpdatedAt}`).toISOString() : newUpdatedAt;
+        this.updatedAt = newUpdatedAt
         return this;
     }
     toJSON(): this {

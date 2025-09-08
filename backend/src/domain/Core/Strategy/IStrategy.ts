@@ -2,6 +2,8 @@
 
 export interface IStrategy {
 
+    parseBRDateToISO(str: string | undefined): string | undefined;
+
     isNull(field: any): this;
     isUndefined(field: any): this;
     isString(field: any): this;

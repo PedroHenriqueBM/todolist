@@ -32,7 +32,6 @@ export class TaskService implements ITaskService {
     }
     async createTask(props: ICreateTaskProps): Promise<void> {
 
-
         const task = new TaskFactory().create({
             id: undefined,
             createdAt: undefined,
@@ -72,7 +71,7 @@ export class TaskService implements ITaskService {
 
             const taskAlreadyExists = await this.taskRepository.readOneTaskByTitle({ title: props.title });
 
-            if (taskAlreadyExists) {
+            if (taskAlreadyExists && taskAlreadyExists.getId() !== task.getId()) {
                 throw new TaskAlreadyExists({ cause: `${props.title} already exists`, module: "TaskService/updateTask", status: 400 });
             }
 

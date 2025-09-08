@@ -1,0 +1,58 @@
+
+.tasks-page{
+    display: flex;
+    width: 100%;
+    height: 100%;
+    justify-content: center;
+    align-items: end;
+    flex-direction: column;
+    gap: 5%;
+    overflow: auto;
+    padding: 5%;
+  
+}
+
+.header-table{
+    background-color: rgb(27, 27, 27);
+    color: white;
+
+    
+}
+
+.box-table{
+    width: 100%;
+    height: 90%;
+    border-radius: 10px 10px 10px 10px;
+    padding: 2px;
+    box-sizing: border-box;
+    
+} 
+
+
+.box-pagination{
+    display: flex;
+    flex-direction: row;
+    
+}
+
+
+
+.body-table {
+    overflow: scroll;
+    width: 100%;
+    overflow-y: auto;
+   
+}
+
+
+.body-dialog{
+    display: flex;
+    flex-direction: column;
+}
+
+.title-dialog{
+    margin-top: 5px;
+    width: 100%;
+    text-align: center;
+
+}

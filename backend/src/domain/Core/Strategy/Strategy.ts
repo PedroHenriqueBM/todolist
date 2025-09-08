@@ -11,6 +11,20 @@ export class Strategy implements IStrategy {
 
     private response: Boolean | undefined = undefined;
 
+    parseBRDateToISO(str: string | undefined): string | undefined {
+
+        if (str === undefined) { return undefined }
+        // Divide em [dia, mês, ano]
+        const [day, month, year] = str.split("/").map(Number);
+
+        // Cria objeto Date (atenção: mês no JS é 0-based)
+        const date = new Date(year, month - 1, day);
+
+        // Retorna em ISO string (UTC)
+        return date.toISOString();
+
+    }
+
     isNumber(field: any): this {
         this.response = (typeof field === "number");
         return this;
@@ -45,6 +59,8 @@ export class Strategy implements IStrategy {
         }
 
         this.response = format.test(field)
+
+
         return this;
     }
 
